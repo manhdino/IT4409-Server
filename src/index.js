@@ -5,10 +5,11 @@ const port = process.env.PORT || 3002;
 const routes = require("./routes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 routes(app);
 
 mongoose

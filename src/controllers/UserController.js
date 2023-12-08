@@ -49,15 +49,14 @@ const loginUser = async (req, res) => {
       });
     }
     const response = await UserService.loginUser(req.body);
-    // const { refresh_token, ...newReponse } = response;
-    // res.cookie("refresh_token", refresh_token, {
-    //   httpOnly: true,
-    //   secure: false,
-    //   sameSite: "strict",
-    //   path: "/",
-    // });
-    // return res.status(200).json({ ...newReponse, refresh_token });
-    return res.status(200).json(response);
+    const { refresh_token, ...newReponse } = response;
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
+    return res.status(200).json({ ...newReponse, refresh_token });
   } catch (e) {
     return res.status(404).json({
       message: e,
