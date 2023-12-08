@@ -52,9 +52,9 @@ const loginUser = async (req, res) => {
     const { refresh_token, ...newReponse } = response;
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
-      path: "/",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
     });
     return res.status(200).json({ ...newReponse, refresh_token });
   } catch (e) {
